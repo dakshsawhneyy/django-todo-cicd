@@ -1,10 +1,15 @@
 FROM python:3
 
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y python3-distutils python3-venv python3-dev build-essential
+
 # update pip too warning was coming
-RUN pip install --upgrade pip
-RUN pip install django==3.2
+RUN pip install --upgrade pip setuptools
 
 COPY . .
+
+RUN pip install django==3.2
 
 RUN python manage.py migrate
 EXPOSE 8000
